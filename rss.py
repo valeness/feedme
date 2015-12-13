@@ -8,8 +8,8 @@ import creds
 
 class Feed():
     def __init__(self):
-        self.file = '/home/gary/scripts/rss/feedlist.csv'
-        self.existing_file = '/home/gary/scripts/rss/existing.csv'
+        self.file = creds.file_path + 'feedlist.csv'
+        self.existing_file =  creds.file_path + 'existing.csv'
         self.feeds = []
         self.body = []
         self.existing = []
