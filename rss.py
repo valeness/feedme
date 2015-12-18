@@ -38,8 +38,8 @@ class Feed():
                 feed['feed']['subtitle'] = 'No Subtitle Available'
 
             feed_body = []
-            feed_body.append("Title: {0}".format(feed['feed']['title']))
-            feed_body.append("Link : {0}".format(feed['feed']['link']))
+            feed_body.append("Title: {0}".format(feed['feed']['title'].encode('ascii', 'ignore')))
+            feed_body.append("Link : {0}".format(feed['feed']['link'].encode('ascii', 'ignore')))
             feed_body.append(feed['feed']['subtitle'])
             entries = []
             counter = 1
@@ -70,7 +70,9 @@ class Feed():
         s = smtplib.SMTP(host='smtp.gmail.com', port=587)
         s.starttls()
         s.login(creds.user, creds.password)
-        s.sendmail(creds.from_email, creds.to_email, msg.as_string())
+        emails = creds.to_email
+        for i in emails:
+            s.sendmail(creds.from_email, i, msg.as_string())
         s.quit()
 
     def addFeed(self):
